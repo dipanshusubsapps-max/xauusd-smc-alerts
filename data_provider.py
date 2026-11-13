@@ -159,14 +159,22 @@ class TwelveDataProvider(BaseDataProvider):
     def name(self) -> str:
         return f"Twelve Data ({self._symbol})"
 
+    # Map common timeframe aliases to Twelve Data format
+    _TF_MAP = {
+        "1m": "1min", "3m": "3min", "5m": "5min", "15m": "15min",
+        "30m": "30min", "1h": "1h", "4h": "4h", "1d": "1day",
+    }
+
     def fetch_candles(self, symbol: str = "XAU/USD", timeframe: str = "5min", limit: int = 150) -> pd.DataFrame:
         import urllib.request
         import json
 
         self._symbol = symbol
+        # Normalize timeframe to Twelve Data format (e.g. "5m" → "5min")
+        td_interval = self._TF_MAP.get(timeframe, timeframe)
         url = (
             f"https://api.twelvedata.com/time_series?"
-            f"symbol={symbol}&interval={timeframe}&outputsize={min(limit, 200)}&apikey={self.api_key}"
+            f"symbol={symbol}&interval={td_interval}&outputsize={min(limit, 200)}&apikey={self.api_key}"
         )
 
         try:
