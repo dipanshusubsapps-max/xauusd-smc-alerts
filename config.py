@@ -36,17 +36,16 @@ YAHOO_FALLBACK_SYMBOL = os.getenv("YAHOO_FALLBACK_SYMBOL", "GC=F")
 TWELVEDATA_SYMBOL = os.getenv("TWELVEDATA_SYMBOL", "XAU/USD")
 TWELVEDATA_API_KEY = os.getenv("TWELVEDATA_API_KEY", "")
 
-# --- SMC Engine Configuration ---
-# Lookback bars on each side for swing pivot detection (e.g. 3 bars left, 3 bars right)
+# --- SMC Engine Configuration (Matched 1:1 with TradingView Pine Script) ---
+# Lookback bars on each side for swing pivot detection (default 3)
 SWING_LENGTH = int(os.getenv("SWING_LENGTH", "3"))
 
-# Market Structure Shift (MSS) displacement filter
-# Ratio of candle body / range against ATR (Average True Range)
-MIN_DISPLACEMENT_ATR_MULT = float(os.getenv("MIN_DISPLACEMENT_ATR_MULT", "1.0"))
+# Market Structure Shift (MSS) displacement filter (body > ATR * 1.5)
+MIN_DISPLACEMENT_ATR_MULT = float(os.getenv("MIN_DISPLACEMENT_ATR_MULT", "1.5"))
 ATR_PERIOD = int(os.getenv("ATR_PERIOD", "14"))
 
-# Confirmation rule: 'close' requires candle close past break level, 'wick' requires high/low breach
-CONFIRMATION_MODE = os.getenv("CONFIRMATION_MODE", "close").lower()
+# Confirmation rule: 'wick' (default from indicator) or 'close'
+CONFIRMATION_MODE = os.getenv("CONFIRMATION_MODE", "wick").lower()
 REQUIRE_CANDLE_CLOSE = CONFIRMATION_MODE == "close"
 
 # Number of historical candles to fetch for reliable structure calculation
