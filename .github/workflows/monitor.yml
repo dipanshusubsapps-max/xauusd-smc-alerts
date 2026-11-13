@@ -54,13 +54,12 @@ jobs:
         env:
           INSTRUMENT: 'XAUUSD'
           TIMEFRAME: '5m'
-          DATA_PROVIDER: 'yahoo'
-          YAHOO_SYMBOL: 'XAUUSD=X'
-          YAHOO_FALLBACK_SYMBOL: 'GC=F'
+          DATA_PROVIDER: 'twelvedata'
+          TWELVEDATA_SYMBOL: 'XAU/USD'
           SWING_LENGTH: '3'
-          MIN_DISPLACEMENT_ATR_MULT: '1.0'
+          MIN_DISPLACEMENT_ATR_MULT: '1.5'
           ATR_PERIOD: '14'
-          CONFIRMATION_MODE: 'close'
+          CONFIRMATION_MODE: 'wick'
           FILTER_SESSIONS: 'false'
           ALERT_TIMEZONE: 'Asia/Kolkata'
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
